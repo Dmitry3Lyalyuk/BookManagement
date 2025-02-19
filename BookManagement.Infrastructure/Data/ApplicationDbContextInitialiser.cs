@@ -23,7 +23,7 @@ namespace BookManagement.Infrastructure.Data
         {
             try
             {
-                if (_context.User.Any())
+                if (!_context.User.Any())
                 {
                     var adminId = new Guid();
                     _context.User.AddRange(new Domain.Entity.User
@@ -40,16 +40,16 @@ namespace BookManagement.Infrastructure.Data
                     });
                 }
 
-                if (_context.Books.Any())
+                if (!_context.Books.Any())
                 {
                     _context.Books.AddRange(
                         new Domain.Entity.Book()
                         {
                             Id = Guid.NewGuid(),
-                            title = "SilverSpoon",
-                            publicationYear = 1990,
-                            authorName = "AlexVan",
-                            viewCount = 1,
+                            Title = "SilverSpoon",
+                            PublicationYear = 1990,
+                            AuthorName = "AlexVan",
+                            ViewCount = 1,
                             CreatedBy = null,
                             CreatedAt = DateTime.Now,
                             LastModifiedBy = null,
@@ -58,16 +58,18 @@ namespace BookManagement.Infrastructure.Data
                         new Domain.Entity.Book()
                         {
                             Id = Guid.NewGuid(),
-                            title = "BlackRock",
-                            publicationYear = 1989,
-                            authorName = "Alex2",
-                            viewCount = 2,
+                            Title = "BlackRock",
+                            PublicationYear = 1989,
+                            AuthorName = "Alex2",
+                            ViewCount = 2,
                             CreatedBy = null,
                             CreatedAt = DateTime.Now,
                             LastModifiedBy = null,
                             LastModifiedAt = DateTime.Now
                         });
                 }
+
+                await _context.SaveChangesAsync();
             }
             catch
             {

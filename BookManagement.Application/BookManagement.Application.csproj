@@ -7,11 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BookManagement.Domain\BookManagement.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Books\Commands\Create\" />
+    <Folder Include="Books\Commands\Delete\" />
+    <Folder Include="Books\Commands\Update\" />
+    <Folder Include="Books\Validators\" />
+    <Folder Include="Users\Commands\Delete\" />
+    <Folder Include="Users\Commands\Update\" />
+    <Folder Include="Users\Validators\" />
   </ItemGroup>
 
 </Project>
