@@ -1,6 +1,25 @@
-@BookManagement.Web_HostAddress = http://localhost:5237
+@BookManagement.Web_HostAddress = http://localhost:5237/api
 
-GET {{BookManagement.Web_HostAddress}}/weatherforecast/
+
+### Get all books
+GET {{BookManagement.Web_HostAddress}}/books
 Accept: application/json
+
+###
+
+### Create a book
+POST {{BookManagement.Web_HostAddress}}/books
+Content-Type: application/json
+
+{
+  "title": "newtitle",
+  "publicationYear": "year",
+  "AuthorName": "name"
+}
+
+###
+
+### Delete a certain book
+DELETE {{BookManagement.Web_HostAddress}}/books/{id}
 
 ###
