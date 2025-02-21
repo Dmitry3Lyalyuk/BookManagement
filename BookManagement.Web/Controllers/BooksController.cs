@@ -2,6 +2,7 @@
 using BookManagement.Application.Books.Commands.Delete;
 using BookManagement.Application.Books.Commands.Update;
 using BookManagement.Application.Books.Queries;
+using BookManagement.Application.Books.Queries.GetByTitle;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,20 @@ namespace BookManagement.Web.Controllers
 
             return Ok(books);
         }
+        [HttpGet("{bookId:guid}")]
+        public async Task<IActionResult> GetBookDetails(Guid bookId)
+        {
+            var query = new GetBookIdQuery { Id = bookId };
+            var result = await _mediator.Send(query);
+
+            if (result == null)
+            {
+                return NotFound("Ticket was not found.");
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Guid>> CreateBook([FromBody] CreateBookCommand command)
         {

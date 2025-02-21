@@ -2,7 +2,7 @@
 
 namespace BookManagement.Domain.Entity
 {
-    public class Book : BaseAuditableEntity
+    public class Book : BaseEntity
     {
         public string Title { get; set; }
         public int PublicationYear { get; set; }

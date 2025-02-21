@@ -13,6 +13,7 @@ namespace BookManagement.Application.Books.Commands.Create
         }
         public async Task<Guid> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
+
             var entity = new Book
             {
                 Title = request.Title,
@@ -21,6 +22,7 @@ namespace BookManagement.Application.Books.Commands.Create
             };
 
             _context.Books.Add(entity);
+
 
             await _context.SaveChangesAsync(cancellationToken);
 

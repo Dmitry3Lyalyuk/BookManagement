@@ -19,8 +19,6 @@ namespace BookManagement.Application.Books.Validators
                 .MustAsync(BeUniqueTitle).WithMessage("Title shuld be unique.");
 
             RuleFor(p => p.PublicationYear)
-                .LessThan(4)
-                .WithMessage("Title is required")
                 .NotEmpty()
                 .WithMessage("PublicationYear is required");
 
