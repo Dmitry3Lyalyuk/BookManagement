@@ -6,6 +6,7 @@ using BookManagement.Application.Books.Commands.Update;
 using BookManagement.Application.Books.Queries.GetByTitle;
 using BookManagement.Application.Books.Queries.GetDTOtitle;
 using BookManagement.Application.Books.Queries.GetDTOTitle;
+using BookManagement.Application.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -111,12 +112,13 @@ namespace BookManagement.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<BookDTOTitle>>> GetAllBooks()
+        public async Task<ActionResult<PaginatedList<BookDTOTitle>>> GetAllBooks([FromQuery] int pageNumber,
+            [FromQuery] int pageSize)
         {
-            var query = new GetAllBooksQuery();
+            var query = new GetAllBooksQuery { PageNumber = pageNumber, PageSize = pageSize };
             var books = await _mediator.Send(query);
 
-            if (books is null or [])
+            if (books == null || books.Items == null || books.Items.Count == 0)
             {
                 return NotFound("Not book found!");
             }
