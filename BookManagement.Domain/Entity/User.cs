@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookManagement.Domain.Entity
 {
-    public class User : BaseAuditableEntity
+    public class User : BaseEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

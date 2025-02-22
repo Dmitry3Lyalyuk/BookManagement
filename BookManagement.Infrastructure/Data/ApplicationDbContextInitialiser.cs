@@ -33,10 +33,6 @@ namespace BookManagement.Infrastructure.Data
                         Email = "admin@test.com",
                         FirstName = "Admin",
                         LastName = "User",
-                        CreatedBy = null,
-                        CreatedAt = DateTime.Now,
-                        LastModifiedBy = null,
-                        LastModifiedAt = DateTime.Now
                     });
                 }
 
@@ -50,10 +46,6 @@ namespace BookManagement.Infrastructure.Data
                             PublicationYear = 1990,
                             AuthorName = "AlexVan",
                             ViewCount = 1,
-                            CreatedBy = null,
-                            CreatedAt = DateTime.Now,
-                            LastModifiedBy = null,
-                            LastModifiedAt = DateTime.Now
                         },
                         new Domain.Entity.Book()
                         {
@@ -62,10 +54,6 @@ namespace BookManagement.Infrastructure.Data
                             PublicationYear = 1989,
                             AuthorName = "Alex2",
                             ViewCount = 2,
-                            CreatedBy = null,
-                            CreatedAt = DateTime.Now,
-                            LastModifiedBy = null,
-                            LastModifiedAt = DateTime.Now
                         });
                 }
 
