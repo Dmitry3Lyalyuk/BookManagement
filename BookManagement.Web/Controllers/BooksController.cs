@@ -1,8 +1,11 @@
 ﻿using BookManagement.Application.Books.Commands.Create;
+using BookManagement.Application.Books.Commands.CreateBulk;
 using BookManagement.Application.Books.Commands.Delete;
+using BookManagement.Application.Books.Commands.DeleteBulk;
 using BookManagement.Application.Books.Commands.Update;
-using BookManagement.Application.Books.Queries;
 using BookManagement.Application.Books.Queries.GetByTitle;
+using BookManagement.Application.Books.Queries.GetDTOtitle;
+using BookManagement.Application.Books.Queries.GetDTOTitle;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,32 +20,6 @@ namespace BookManagement.Web.Controllers
         public BooksController(IMediator mediator)
         {
             _mediator = mediator;
-        }
-        [HttpGet]
-        public async Task<ActionResult<List<BookDTO>>> GetAllBooks()
-        {
-            var query = new GetAllBooksQuery();
-            var books = await _mediator.Send(query);
-
-            if (books is null or [])
-            {
-                return NotFound("Not book found!");
-            }
-
-            return Ok(books);
-        }
-        [HttpGet("{bookId:guid}")]
-        public async Task<IActionResult> GetBookDetails(Guid bookId)
-        {
-            var query = new GetBookIdQuery { Id = bookId };
-            var result = await _mediator.Send(query);
-
-            if (result == null)
-            {
-                return NotFound("Ticket was not found.");
-            }
-
-            return Ok(result);
         }
 
         [HttpPost]
@@ -64,15 +41,22 @@ namespace BookManagement.Web.Controllers
                 return StatusCode(500, $"Error: {ex.Message}");
             }
         }
-        [HttpDelete("{id:guid}")]
-        public async Task<ActionResult> Delete(Guid id)
+
+        [HttpPost("Bulk")]
+        public async Task<ActionResult<List<Guid>>> CreateBooks([FromBody] CreateBooksCommand command)
         {
-            var command = new DeleteBookCommand(id);
+            try
+            {
+                var bookId = await _mediator.Send(command);
 
-            await _mediator.Send(command);
-
-            return NoContent();
+                return Ok(bookId);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error: {ex.Message}");
+            }
         }
+
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateBook(Guid id, [FromBody] UpdateBookCommand command)
         {
@@ -94,6 +78,64 @@ namespace BookManagement.Web.Controllers
             {
                 return StatusCode(500, $"Error: {ex.Message}");
             }
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var command = new DeleteBookCommand(id);
+
+            await _mediator.Send(command);
+
+            return NoContent();
+        }
+
+        [HttpDelete("Buik")]
+        public async Task<ActionResult<List<Guid>>> DeleteBooks([FromBody] DeleteBooksCommand command)
+        {
+            try
+            {
+                var deletedBookIds = await _mediator.Send(command);
+
+                if (deletedBookIds == null)
+                {
+                    return NotFound("No books found with the specified Id");
+                }
+
+                return Ok(deletedBookIds);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<BookDTOTitle>>> GetAllBooks()
+        {
+            var query = new GetAllBooksQuery();
+            var books = await _mediator.Send(query);
+
+            if (books is null or [])
+            {
+                return NotFound("Not book found!");
+            }
+
+            return Ok(books);
+        }
+
+        [HttpGet("{bookId:guid}")]
+        public async Task<IActionResult> GetBookDetails(Guid bookId)
+        {
+            var query = new GetBookIdQuery { Id = bookId };
+            var result = await _mediator.Send(query);
+
+            if (result == null)
+            {
+                return NotFound("Ticket was not found.");
+            }
+
+            return Ok(result);
         }
     }
 }
