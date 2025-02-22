@@ -124,15 +124,15 @@ namespace BookManagement.Web.Controllers
             return Ok(books);
         }
 
-        [HttpGet("{bookId:guid}")]
-        public async Task<IActionResult> GetBookDetails(Guid bookId)
+        [HttpGet("title/{title}")]
+        public async Task<IActionResult> GetBookDetails(string title)
         {
-            var query = new GetBookIdQuery { Id = bookId };
+            var query = new GetBookTitleQuery { Title = title };
             var result = await _mediator.Send(query);
 
             if (result == null)
             {
-                return NotFound("Ticket was not found.");
+                return NotFound("Book was not found.");
             }
 
             return Ok(result);

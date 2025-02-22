@@ -4,22 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookManagement.Application.Books.Queries.GetByTitle
 {
-    public record GetBookIdQuery : IRequest<BookDTO>
+    public record GetBookTitleQuery : IRequest<BookDTO>
     {
-        public Guid Id { get; set; }
+        public string Title { get; set; }
     };
 
-    public class GetBookIdQueryHandler : IRequestHandler<GetBookIdQuery, BookDTO>
+    public class GetBookIdQueryHandler : IRequestHandler<GetBookTitleQuery, BookDTO>
     {
         private readonly IAppicationDbContext _context;
         public GetBookIdQueryHandler(IAppicationDbContext context)
         {
             _context = context;
         }
-        public async Task<BookDTO> Handle(GetBookIdQuery request, CancellationToken cancellationToken)
+        public async Task<BookDTO> Handle(GetBookTitleQuery request, CancellationToken cancellationToken)
         {
             var entity = await _context.Books
-                .Where(t => t.Id == request.Id)
+                .Where(t => t.Title == request.Title)
                 .Select(t => new BookDTO()
                 {
                     Id = t.Id,
@@ -29,15 +29,17 @@ namespace BookManagement.Application.Books.Queries.GetByTitle
                     ViewCount = t.ViewCount
                 }).FirstOrDefaultAsync(cancellationToken);
 
-
-            var book = await _context.Books.FindAsync(request.Id);
-
-            if (book != null)
+            if (entity != null)
             {
-                book.ViewCount++;
-                _context.Books.Update(book);
+                var book = await _context.Books.FindAsync(entity.Id);
 
-                await _context.SaveChangesAsync();
+                if (book != null)
+                {
+                    book.ViewCount++;
+                    _context.Books.Update(book);
+
+                    await _context.SaveChangesAsync(cancellationToken);
+                }
             }
 
             return entity;
