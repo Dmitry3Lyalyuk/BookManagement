@@ -18,6 +18,16 @@ namespace BookManagement.Application.Books.Queries.GetByTitle
         }
         public async Task<BookDTO> Handle(GetBookTitleQuery request, CancellationToken cancellationToken)
         {
+            var ViewComponent = await _context.Books
+                .Where(t => t.Title == request.Title)
+                .Select(t => Math.Min(t.ViewCount * 0.3, 80)).
+                FirstOrDefaultAsync(cancellationToken);
+            var YearComponent = await _context.Books
+                .Where(t => t.Title == request.Title)
+                .Select(t => Math.Min(t.PublicationYear * 0.01, 20)).
+                FirstOrDefaultAsync(cancellationToken);
+            var rating = Math.Min(Math.Round(ViewComponent + YearComponent, 1), 100);
+
             var entity = await _context.Books
                 .Where(t => t.Title == request.Title)
                 .Select(t => new BookDTO()
@@ -26,7 +36,8 @@ namespace BookManagement.Application.Books.Queries.GetByTitle
                     Title = t.Title,
                     PublicationYear = t.PublicationYear,
                     AuthorName = t.AuthorName,
-                    ViewCount = t.ViewCount
+                    ViewCount = t.ViewCount,
+                    Popularity = rating
                 }).FirstOrDefaultAsync(cancellationToken);
 
             if (entity != null)
