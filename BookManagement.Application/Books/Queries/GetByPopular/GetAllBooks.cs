@@ -13,8 +13,8 @@ namespace BookManagement.Application.Books.Queries.GetDTOTitle
 
     public class GetAllBooksQueryHandler : IRequestHandler<GetAllBooksQuery, PaginatedList<BookDTOTitle>>
     {
-        private readonly IAppicationDbContext _context;
-        public GetAllBooksQueryHandler(IAppicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public GetAllBooksQueryHandler(IApplicationDbContext context)
         {
             _context = context;
         }

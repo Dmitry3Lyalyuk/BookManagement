@@ -8,12 +8,14 @@ using BookManagement.Application.Books.Queries.GetDTOtitle;
 using BookManagement.Application.Books.Queries.GetDTOTitle;
 using BookManagement.Application.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManagement.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class BooksController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -24,6 +26,7 @@ namespace BookManagement.Web.Controllers
         }
 
         [HttpPost]
+
         public async Task<ActionResult<Guid>> CreateBook([FromBody] CreateBookCommand command)
         {
             try
@@ -44,6 +47,7 @@ namespace BookManagement.Web.Controllers
         }
 
         [HttpPost("Bulk")]
+
         public async Task<ActionResult<List<Guid>>> CreateBooks([FromBody] CreateBooksCommand command)
         {
             try
@@ -59,6 +63,7 @@ namespace BookManagement.Web.Controllers
         }
 
         [HttpPut("{id:guid}")]
+
         public async Task<IActionResult> UpdateBook(Guid id, [FromBody] UpdateBookCommand command)
         {
             if (id != command.Id)
@@ -82,6 +87,7 @@ namespace BookManagement.Web.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize]
         public async Task<ActionResult> Delete(Guid id)
         {
             var command = new DeleteBookCommand(id);
@@ -92,6 +98,7 @@ namespace BookManagement.Web.Controllers
         }
 
         [HttpDelete("Buik")]
+        [Authorize]
         public async Task<ActionResult<List<Guid>>> DeleteBooks([FromBody] DeleteBooksCommand command)
         {
             try
@@ -112,6 +119,7 @@ namespace BookManagement.Web.Controllers
         }
 
         [HttpGet]
+
         public async Task<ActionResult<PaginatedList<BookDTOTitle>>> GetAllBooks([FromQuery] int pageNumber,
             [FromQuery] int pageSize)
         {
@@ -127,6 +135,7 @@ namespace BookManagement.Web.Controllers
         }
 
         [HttpGet("title/{title}")]
+
         public async Task<IActionResult> GetBookDetails(string title)
         {
             var query = new GetBookTitleQuery { Title = title };

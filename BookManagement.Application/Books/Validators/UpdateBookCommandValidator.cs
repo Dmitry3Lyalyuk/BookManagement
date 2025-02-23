@@ -7,8 +7,8 @@ namespace BookManagement.Application.Books.Validators
 {
     public class UpdateBookCommandValidator : AbstractValidator<UpdateBookCommand>
     {
-        private readonly IAppicationDbContext _context;
-        public UpdateBookCommandValidator(IAppicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public UpdateBookCommandValidator(IApplicationDbContext context)
         {
             _context = context;
 

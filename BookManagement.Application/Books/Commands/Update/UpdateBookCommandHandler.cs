@@ -5,8 +5,8 @@ namespace BookManagement.Application.Books.Commands.Update
 {
     public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand>
     {
-        private readonly IAppicationDbContext _context;
-        public UpdateBookCommandHandler(IAppicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public UpdateBookCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }

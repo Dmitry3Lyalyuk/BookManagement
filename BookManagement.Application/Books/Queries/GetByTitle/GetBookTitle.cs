@@ -11,8 +11,8 @@ namespace BookManagement.Application.Books.Queries.GetByTitle
 
     public class GetBookIdQueryHandler : IRequestHandler<GetBookTitleQuery, BookDTO>
     {
-        private readonly IAppicationDbContext _context;
-        public GetBookIdQueryHandler(IAppicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public GetBookIdQueryHandler(IApplicationDbContext context)
         {
             _context = context;
         }
