@@ -6,8 +6,8 @@ namespace BookManagement.Application.Books.Commands.Create
 {
     public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Guid>
     {
-        private readonly IAppicationDbContext _context;
-        public CreateBookCommandHandler(IAppicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public CreateBookCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }

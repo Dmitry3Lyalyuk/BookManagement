@@ -6,8 +6,8 @@ namespace BookManagement.Application.Users.Commands.Create
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
     {
-        private readonly IAppicationDbContext _context;
-        public CreateUserCommandHandler(IAppicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public CreateUserCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }

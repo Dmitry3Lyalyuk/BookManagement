@@ -15,7 +15,7 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
 
-        services.AddScoped<IAppicationDbContext>(provider =>
+        services.AddScoped<IApplicationDbContext>(provider =>
         provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();

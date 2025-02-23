@@ -6,9 +6,9 @@ namespace BookManagement.Application.Books.Commands.CreateBulk
 {
     public class CreateBookBulkCommandHandler : IRequestHandler<CreateBooksCommand, List<Guid>>
     {
-        private readonly IAppicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public CreateBookBulkCommandHandler(IAppicationDbContext context)
+        public CreateBookBulkCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }

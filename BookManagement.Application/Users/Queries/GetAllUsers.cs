@@ -11,8 +11,8 @@ namespace BookManagement.Application.Users.Queries
 
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserDTO>>
     {
-        private readonly IAppicationDbContext _context;
-        public GetAllUsersQueryHandler(IAppicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public GetAllUsersQueryHandler(IApplicationDbContext context)
         {
             _context = context;
         }

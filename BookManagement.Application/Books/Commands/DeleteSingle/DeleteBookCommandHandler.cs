@@ -5,8 +5,8 @@ namespace BookManagement.Application.Books.Commands.Delete
 {
     public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand>
     {
-        private readonly IAppicationDbContext _context;
-        public DeleteBookCommandHandler(IAppicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public DeleteBookCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }
