@@ -7,6 +7,6 @@
         public int PublicationYear { get; set; }
         public string AuthorName { get; set; }
         public int ViewCount { get; set; }
-
+        public double Popularity { get; set; }
     }
 }

@@ -26,7 +26,6 @@ namespace BookManagement.Application.Books.Queries.GetDTOTitle
                 {
                     Title = b.Title,
                 }).ToPaginatedListAsync(request.PageNumber, request.PageSize);
-            //.ToListAsync(cancellationToken);
         }
     }
 }
